@@ -38,10 +38,13 @@ static int maint_counter=0;
 static void maint() {
     if (maint_counter==0) {
         if(getenv("TIMESKEW")) {
-            sscanf(getenv("TIMESKEW"), "%i%i", &num, &denom);
+            if(getenv("FRACTION") && *getenv("FRACTION")==1) { sscanf(getenv("TIMESKEW"), "%i%i", &num, &denom); }
+            else
+            { float inputfloat=0; sscanf(getenv("TIMESKEW"), "%f", &inputfloat);
+              num=(int)(inputfloat*100); denom=100; }
         }
         if(getenv("TIMESHIFT")) {
-            sscanf(getenv("TIMESHIFT"), "%i", &shift);
+            sscanf(getenv("TIMESHIFT"), "%lli", &shift);
         }
     }
     ++maint_counter;
