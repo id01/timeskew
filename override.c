@@ -30,6 +30,7 @@ static struct tiacc accumulators[3] = {{0,0}, {0,0}, {0,0}};
 
 static int num = 1;
 static int denom = 1;
+float inputfloat = 0;
 static long long int shift = 0;
 
 #define MAINT_PERIOD 1024
@@ -38,9 +39,9 @@ static int maint_counter=0;
 static void maint() {
     if (maint_counter==0) {
         if(getenv("TIMESKEW")) {
-            if(getenv("FRACTION") && *getenv("FRACTION")==1) { sscanf(getenv("TIMESKEW"), "%i%i", &num, &denom); }
+            if(getenv("FRACTION") && *getenv("FRACTION")=='1') { sscanf(getenv("TIMESKEW"), "%i%i", &num, &denom); }
             else
-            { float inputfloat=0; sscanf(getenv("TIMESKEW"), "%f", &inputfloat);
+            { sscanf(getenv("TIMESKEW"), "%f", &inputfloat);
               num=(int)(inputfloat*100); denom=100; }
         }
         if(getenv("TIMESHIFT")) {
@@ -53,9 +54,10 @@ static void maint() {
     } else return;
 
 
-    FILE* f=fopen("timeskew", "r");
+    FILE* f=fopen("/tmp/.timeskew", "r");
     if(f) {
-        fscanf(f, "%i%i", &num, &denom);
+        if(getenv("FRACTION") && *getenv("FRACTION")=='1') { fscanf(f, "%i%i", &num, &denom); }
+        else { fscanf(f, "%f", &inputfloat); num=(int)(inputfloat*100); denom=100; }
         fclose(f);
     } else {
         if(!getenv("TIMESKEW")) {
