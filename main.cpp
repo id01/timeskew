@@ -26,6 +26,6 @@ int main(int argc, char *argv[])
 	if (strcmp(argv[1], "skewfraction")==0 || strcmp(argv[1], "skewd")==0) { mode=SKEWD; }
 	if (strcmp(argv[1], "shift")==0) { mode=SHIFT; }
 	if (mode==SKEWF) { if (argc==4) { command="TIMESKEW=\""; command+=argv[2]; command+="\" LD_PRELOAD="; command+=pathtodir; command+="/libtimeskew.so "; command+=argv[3]; system(command.c_str()); } else { help(); return 1; } }
-	if (mode==SKEWD) { if (argc==5) { command="TIMESKEW=\""; command+=argv[2]; command+=argv[3]; command+="\" FRACTION=\"1\" LD_PRELOAD="; command+=pathtodir; command+="/libtimeskew.so "; command+=argv[3]; system(command.c_str()); } else { help(); return 1; } }
+	if (mode==SKEWD) { if (argc==5) { command="TIMESKEW=\""; command+=argv[2]; command+=" "; command+=argv[3]; command+="\" FRACTION=\"1\" LD_PRELOAD="; command+=pathtodir; command+="/libtimeskew.so "; command+=argv[4]; system(command.c_str()); } else { help(); return 1; } }
 	if (mode==SHIFT) { if (argc==4) { command="TIMESHIFT=\""; command+=argv[2]; command+="\" LD_PRELOAD="; command+=pathtodir; command+="/libtimeskew.so "; command+=argv[3]; system(command.c_str()); } else { help(); return 1; } }
 }
