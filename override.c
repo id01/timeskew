@@ -42,7 +42,7 @@ static void maint() {
             if(getenv("FRACTION") && *getenv("FRACTION")=='1') { sscanf(getenv("TIMESKEW"), "%i%i", &num, &denom); }
             else
             { sscanf(getenv("TIMESKEW"), "%f", &inputfloat);
-              num=(int)(inputfloat*100); denom=100; }
+              num=(int)(inputfloat*1000); denom=1000; }
         }
         if(getenv("TIMESHIFT")) {
             sscanf(getenv("TIMESHIFT"), "%lli", &shift);
@@ -56,8 +56,7 @@ static void maint() {
 
     FILE* f=fopen("/tmp/.timeskew", "r");
     if(f) {
-        if(getenv("FRACTION") && *getenv("FRACTION")=='1') { fscanf(f, "%i%i", &num, &denom); }
-        else { fscanf(f, "%f", &inputfloat); num=(int)(inputfloat*100); denom=100; }
+        fscanf(f, "%i%i", &num, &denom);
         fclose(f);
     } else {
         if(!getenv("TIMESKEW")) {

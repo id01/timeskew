@@ -9,3 +9,5 @@ id01: Made a few adjustments. Got rid of the long long int warning and made a c+
 New Usage: timeskew [mode] [args] [command]
 Enabled make install.
 Enabled (sort of) UI for timeskew realtime. Also move timeskew realtime to /tmp/.timeskew.
+
+Note: This program will only work with GUI apps. If you are running pure terminal, please use the master branch.
