@@ -7,3 +7,4 @@ TIMESHIFT also sets constant time shift
 
 id01: Made a few adjustments. Got rid of the long long int warning and made a c++ script to execute timeshift easier. Also added float/decimal input support. Cheers!
 New Usage: timeskew [mode] [args] [command]
+Enabled make install.
