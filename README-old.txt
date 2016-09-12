@@ -4,10 +4,9 @@
 3. Create/update "timeskew" file in current directory to update time coefficient, e.g. `echo 1 3 > timeskew` - slow down 3x.
 
 TIMESHIFT also sets constant time shift
+Credit for original project (override.c) goes to vi
 
 id01: Made a few adjustments. Got rid of the long long int warning and made a c++ script to execute timeshift easier. Also added float/decimal input support. Cheers!
 New Usage: timeskew [mode] [args] [command]
 Enabled make install.
 Enabled (sort of) UI for timeskew realtime. Also move timeskew realtime to /tmp/.timeskew.
-
-Note: This program will only work with GUI apps. If you are running pure terminal, please use the master branch.
