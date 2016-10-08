@@ -1,7 +1,19 @@
-libtimeskew.so.0.0.0: override.c main.cpp editor.c Makefile
+default:
+		# Run "Make build" to build.
+		# Run "Make nogui" to build without GUI.
+		# Run "Make install" to install.
+		# Run "Make uninstall" to uninstall.
+
+build: override.c main.cpp editor.cpp Makefile
 		gcc -shared -fPIC -o libtimeskew.so.0.0.0 override.c -ldl
-		g++ -o timeskew main.cpp
-		gcc -o timeskew-editor editor.c
+		g++ -O -o timeskew main.cpp
+		g++ -O -std=c++11 -o timeskew-editor editor.cpp `pkg-config gtkmm-3.0 --cflags --libs`
+		ln -fs libtimeskew.so.0.0.0 libtimeskew.so
+
+nogui: override.c main.cpp editor_nogui.c Makefile
+		gcc -shared -fPIC -o libtimeskew.so.0.0.0 override.c -ldl
+		g++ -O -o timeskew main.cpp
+		gcc -O -o timeskew-editor editor_nogui.c
 		ln -fs libtimeskew.so.0.0.0 libtimeskew.so
 
 install: timeskew timeskew-editor libtimeskew.so.0.0.0
@@ -16,5 +28,7 @@ uninstall:
 		rm /usr/bin/libtimeskew.so
 		rm /usr/bin/timeskew
 
+.PHONY: build
 .PHONY: install
 .PHONY: uninstall
+.PHONY: nogui

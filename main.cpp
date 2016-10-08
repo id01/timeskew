@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <libgen.h>
+#include "directories.h"
 #include <string>
 using std::string;
 #define SKEWF 0
@@ -22,9 +22,9 @@ int main(int argc, char *argv[])
 	bool nogui=false;
 	string command;
 	string args;
-	char pathtoself[100];
-	readlink("/proc/self/exe", pathtoself, 100);
-	string pathtodir = dirname(pathtoself);
+	char pathtoself[128];
+	MF_getdir(pathtoself, 128);
+	string pathtodir = pathtoself;
 	if (argc==1) { help(); return 1; }
 	if (strcmp(argv[1], "skewf")==0) { mode=SKEWF; }
 	if (strcmp(argv[1], "skewd")==0) { mode=SKEWD; }
@@ -43,8 +43,10 @@ int main(int argc, char *argv[])
 		for (int i=4; i<argc; i++) { args+=" "; args+=argv[i]; }
 		command="TIMESHIFT=\""; command+=argv[2]; command+="\" LD_PRELOAD="; command+=pathtodir; command+="/libtimeskew.so "; command+=argv[3]; command+=args; command+=" &"; system(command.c_str()); }
 		else { help(); return 1; } }
-//	float skewamount; int num; int denom;
 	if (nogui==true || mode==SHIFT) { return 0; }
-	command="xterm -e "; command+=pathtodir; command+="/timeskew-editor "; command+=mode+48;
+	command=pathtodir; command+="/timeskew-editor ";
+	if (mode==SKEWF) { command+="0"; }
+	if (mode==SKEWD) { command+="1"; }
+	usleep(50000);
 	if (system(command.c_str())==2) { printf("Could not start realtime time editing.\n"); }
 }

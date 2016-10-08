@@ -1,2 +1,4 @@
 *.o
 lib*.so*
+timeskew
+timeskew-editor
