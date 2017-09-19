@@ -22,8 +22,7 @@ Credit for original project goes to [vi](https://github.com/vi).
 This includes override.c and some of makefile  
 Original project can be found [here](https://github.com/vi/timeshift), under the MIT license.  
 Modifications made by id01.  
-Gtkmm library used from [here](www.gtkmm.org), under GNU LGPL.  
-Directoris.h from [here](https://github.com/id01/my-c-custom-libs), under GNU GPL.  
+Gtkmm library used from [here](www.gtkmm.org), under GNU LGPL.    
 This project is distributed under the GNU GPLv3.
 
 ## Improvements
